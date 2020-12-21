@@ -1,0 +1,44 @@
++++++++instalação reactNative+++++++++++++++
+*ir no site oficial+ ir Environment setup + Setting up the development environment + clicar em React Native CLI Quickstart
+escolher para windows e Android + clicar em chocolatey + em chocolatey.org clicar em Get Start +
++ vai mostrar o caminho para a instalação em comando q deve copiar e colar no windows terminal e instalar o gerenciador de pacotes do windows abaixo:
+*Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+
+*depois em react-native site oficial em Setting up the development environment + aparece comando para instalar node, Python2, JDK q coloca no terminal power shell instalando usando chocolatey usado antes... 
+*no terminal:    choco install -y nodejs.install python2 openjdk8
+
+*+++++++++instalar android studio tbm++++++++++++++
+
+* no Windows Control Panel(só ir meu computador+propriedades+configuração avançada de sistema+variaveis de ambiente) criar variavel: ANDROID_HOME coloca nome variavel: ANDROID_HOME.. com caminho até sdk do android 
+*no terminal vai em C:\Android\Sdk   no meu computador é esse caminho até Sdk do androidStudio.. colar no caminho Android_home acima... e ok ok
+*pwd no terminal motra o caminho certinho a ser feito..
+
+*ir pelo terminal e C:\Android\Sdk\platform-tools clica em pwd no terminal copia e cola no path-python na variavel de ambiente e colar o caminho em baixo novo..
+*adb.exe --version  :pode ter acesso ao abd...podendo baixar o abd em qualquer lugar de pasta C:computador???
+
+*no terminal digita node --version    para ver qual versão do node e se esta instalado..
+
+*npx react-native init nomequalquerProject     : depois cola isto no terminal e da enter..."nomequalquerProject foi escolhido pode qualquer nome de projeto",, instalando assim reactNative na pasta criando assim o projeto..
+
+
+*npx react-native start   :startar o reactNative dentro da pasta de projeto awesomeProject(q foi criada antes) criada anteriormente startando  assim o reactNative...
+*extras*caso não rode abre androidStudio e vai em configure + AVDmanager (onde esta android virtual device e clica no play ->)+ reiniciar a maquina procurar a bios q falta.. .. . ...
+
+*abrindo o android estudio indo em configuração+ AVDmanager (onde esta android virtual device e clica no play -> vai abrir celular ao lado )...+
+*npx react-native run-android   :depois de tudo aberto androidStudio e pronto para rodar android mandar este comando usando 'windows terminal' na pasta reactNative criada em awesomeProject no caso inicializando assim reactnative...
+
+************projeto exercicio detalhes...*************
+*criar uma pasta src dentro do projeto onde coloca todos os componentes... e onde normalmente fica o app.js tbm
+
+*reflesh no celular app androidStudio clica r r duas vezes para atualizar
+
++++++++++vs code criar snippets+++++++++++
+*snippets= serve para automatizar um codigo abrindo um arquivo e colocando o prefixo do snippets criado
+*ir em file + preferences + clicar user snippets + dai aparece opçoes p escolher se quer usar global ou pro projeto q esta em si especifico no caso exercicios+
++cria .vscode e aparece uma barra de digitação coloca nome do snippets ex: 'Componente Funcional' e enter + digita o que quer automatizar no codigo...
+
+
+
+
+
+cd .1testes/taskof/tasks-offline-versao-final/tasks

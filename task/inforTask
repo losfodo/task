@@ -1,0 +1,49 @@
+++++++++organizando++++++++++
+*java --version    : terminal na pasta q sera projeto ver versão java usada 12.0.1.. não estou usando nenhuma no caso
+*node --version    : terminal ver versão usada 12.14.0
+*npm --version     : terminal versão da aula 6.13.4
+*react-native      : terminal forma global aparece versão.. remover da forma global caso esteja
+*npm -g uninstall react-native    : terminal desisntalar react-native global
+*npm -g list     : terminal mostra todas as dependencias globais 
+*open    : dando open terminal mostra dependencias globais instaladas
+
+++++++++++emulando celular android estudio+++++++++++++++++
+*abrir android studio > configure > AVD manager ' > create virtual device > escolher o celular q quiser > 
+
++++++++++++instalando react-native na pasta sera projeto tasks e dependencias++++++++++++++
+*npx react-native init tasks --version 0.61.5    : terminal na pasta task instalando reactNative com nome tasks na pasta..
+*npm i    : terminal na pasta tasks instalar as dependencias do package.json colocados pegos com versoes da aula
+*npx react-native link    :terminal linkar os assets especificamente as fontes projeto ios e android execuntando tudo de forma sucedida ou seja projeto esta correto
+
++++OBSERVAÇOES...+++
+*-npx react-native run-ios     :terminal abre deploy ios com emulador de celular NAO FUNCIONA POIS NAO CONECTADO COM ANDROID STUDIO
+*-emulator -list-avds    :terminal acessar emulador android studio no caso os aparelhos q estão emulados NAO CONECTADO COM ANDROID STUDIO ABRIR E FAZER MANUALMENTE
+
+++++++++abrindo react-native android pra rodar+++++++++++
+*abrir android studio > configure > AVD manager ' > create virtual device ou seta de algum dispositivo ja criado
+*npx react-native run-android    :terminal apos aberto android studio com emulador celular aberto rodar comando na pasta do projeto
+
++++++++++organizando projeto++++++++++
+*pasta screens: com telas
+*pastas components: componentes individuais
+
+
+         
+         
+   <Text>{props.doneAt + ""}</Text>{/*quando tarefa concluida.. + concatenar e colocar string */}
+
+ <Task desc="Comprar livro" estimateAt={new Date()}doneAt={new Date()}/>{/*arquivo task.js descrição, data estimada,doneAt:concluido  */}
+                <Task desc="ler livro" estimateAt={new Date()}doneAt={null}/>{/*null= tarefa pendente */}
+
++++++++++++para não dar erro no ios ao usar rnDateTimePicker++++++++++++++++++
+*ter xCode na versão mais atual
+*pod install : terminal dentro pasta ios do projeto 
+* abrir xCode e projeto task.. vai em file > workSpaceSettings > build system muda para legacy build system para não travar ios
+*no projeto apaga arquivo pasta build
+
+
+
+
+npx react-native run-ios
+npx react-native run-android
+cd .1projetosCode/taskReactNative/task/tasks
