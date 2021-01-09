@@ -15,7 +15,7 @@ import DateTimePicker from '@react-native-community/datetimepicker' //componente
 
 import commonStyles from '../commonStyles'
 
-const initialState = { desc: '', date: new Date(), showDatePicker: false }//inicializando criar tarefa defini atributo descrição tarefa, e data atual,,
+const initialState = { desc: '', date: new Date(), showDatePicker: false } //inicializando criar tarefa defini atributo descrição tarefa, e data atual,,
                                             /*showDatePicker:dizer se ta aberto ou não o modal da data */
 export default class AddTask extends Component {
 
@@ -23,60 +23,80 @@ export default class AddTask extends Component {
         ...initialState //colocando valores estado inicial....
     }
 
-    getDatePicker = () => {//inicia função da data da no task
-        let datePicker = <DateTimePicker value={this.state.date} //cria variavel para ser retornado depois
-        onChange={(_, date) => this.setState({ date, showDatePicker: false })}//onchange função (atributos _ nao sera usado, data).. state alterar estado data
-        mode='date'/>//pega apenas a data não hora nem outros
-       
-      //  if (this.state.date === undefined) {
-     //       this.state.date = initialState.date
-      //  }
-
-        const dateString = moment(this.state.date).format('ddd, D [de] MMMM [de] YYYY')
-        //formatar data usando moment acima
-        if(Platform.OS === 'Android') {// se plataforma for android
-            datePicker = (//seta datePicker
-                <View>
-                     <TouchableOpacity onPress={() => this.setState({ showDatePicker: true })}>{/*ao clicar define como verdadeiro */}
-                        <Text style={styles.date}>{/*css */}
-                            {dateString} {/*feito apartir do moment */}
-                        </Text>
-                    </TouchableOpacity>
-                    {this.state.showDatePicker && datePicker} {/*se showDatePicker e datePicker for verdadeiro*/}
-                </View>
-            )
+    save = () => { //salvar a taks criada
+        const newTask = {//criar nova task apartir do estado
+            desc: this.state.desc, //atributos
+            date: this.state.date
         }
 
-       return datePicker //retorna variavel datePicker
+        this.props.onSave && this.props.onSave(newTask) //onsave estiver setado chama onsave novatask
+        this.setState({ ...initialState })//passando estado inicial com nova task agr
+    }
+
+    getDatePicker = () => { //inicia função da data no task
+        let datePicker = (
+          <DateTimePicker
+            mode="date"  //pega apenas a data não hora nem outros
+            value={this.state.date}
+            onChange={(_, date) => {//onchange função (atributos _ nao sera usado, data).. state alterar estado data
+              date = date ? date : new Date()
+              this.setState({date, showDatePicker: false})
+            }}
+          />
+        )
+        
+        const dateString = moment(this.state.date).format('ddd, D [de] MMMM [de] YYYY')//formatar data usando moment
+
+        if(Platform.OS === 'android') {// se plataforma for android
+            datePicker = (//seta datePicker
+                <View>
+                    <TouchableOpacity onPress={() => this.setState({ showDatePicker: true })}>{/*ao clicar define como verdadeiro */}
+                        <Text style={styles.date}> {/*css */}
+                            {dateString} {/*feito apartir do moment.js */}
+                        </Text>
+                    </TouchableOpacity>
+                    {this.state.showDatePicker && datePicker} 
+                </View>/*se showDatePicker e datePicker for verdadeiro*/
+            )
+        }
+        
+        return datePicker //retorna variavel datePicker
     }
 
     render() {
         return (
             <Modal transparent={true} visible={this.props.isVisible}/*caso como uma tela aviso.. sera transparente,visibilidade */
-            onRequestClose={this.props.onCancel} //requirido para fechar a tela modal
-            animationType='slide'>{/*animação de entrada e saida */}
+                onRequestClose={this.props.onCancel} //requirido para fechar a tela modal
+                animationType='slide' /*animação de entrada e saida */
+                > 
                 <TouchableWithoutFeedback //conectado ao outro touch ao clicar fecha modal
-                onPress={this.props.onCancel}>{/*apos pressionado botão onCancel fechando aplicação */}
+                    onPress={this.props.onCancel}  /*apos pressionado botão onCancel fechando aplicação */
+                    >
                     <View style={styles.background}></View>
-                </TouchableWithoutFeedback>              
-                <View style={styles.container}>{/*onde sera criada a task nova  */}
-                <Text style={styles.header}>Nova Tarefa</Text>
-                <TextInput style={styles.input} //inserir texto no aplicativo através de um teclado
-                 placeholder="Informe a Descrição..." //escrito no input cinza fraco
-                 onChangeText={desc => this.setState({ desc })}//passa texto mais novo nova descrição alterando valor da descrição
-                 value={this.state.desc} />{/*valor input sera estado descrição */}
-                        {this.getDatePicker()} {/*data atual da task sendo criada */}                      
-                        <View style={styles.buttons}>{/*botoes */}
-                        <TouchableOpacity onPress={this.props.onCancel}>{/* botão cancelar assim como TouchableWithoutFeedback space */}
+                </TouchableWithoutFeedback>
+                <View style={styles.container}>
+                    <Text style={styles.header}>Nova Tarefa</Text>
+                    <TextInput style={styles.input} //inserir texto no aplicativo através de um teclado
+                        placeholder="Informe a Descrição..." 
+                        onChangeText={desc => this.setState({ desc })}//passa texto mais novo nova descrição alterando valor da descrição
+                        value={this.state.desc} /*valor input sera estado descrição */
+                        />
+                    {this.getDatePicker()}{/*data atual da task sendo criada */}
+                    <View style={styles.buttons}/*botoes */
+                    >
+                        <TouchableOpacity onPress={this.props.onCancel} /* botão cancelar assim como TouchableWithoutFeedback space */
+                        >
                             <Text style={styles.button}>Cancelar</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={this.save}>{/*outro botão salvar */}
+                        <TouchableOpacity onPress={this.save} /*outro botão salvar */
+                        >
                             <Text style={styles.button}>Salvar</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
-                <TouchableWithoutFeedback //conectado ao outro touch ao clicar fecha modal
-                onPress={this.props.onCancel}>{/*apos pressionado botão onCancel fechando aplicação */}
+                <TouchableWithoutFeedback
+                    onPress={this.props.onCancel} /*apos pressionado botão onCancel fechando aplicação */
+                    >
                     <View style={styles.background}></View>
                 </TouchableWithoutFeedback>
             </Modal>

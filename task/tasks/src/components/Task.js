@@ -3,10 +3,11 @@ import {
     View,
     Text,
     StyleSheet,
-    TouchableWithoutFeedback //não apresenta nenhum feedback visual, portanto não use a menos que tenha uma boa razão. Já que todos os elementos filhos que respondem ao toque devem receber um feedback visual quando tocados.
- //   TouchableOpacity
+    TouchableWithoutFeedback, //não apresenta nenhum feedback visual, portanto não use a menos que tenha uma boa razão. Já que todos os elementos filhos que respondem ao toque devem receber um feedback visual quando tocados.
+    TouchableOpacity //efeito click seria de excluir tarefa arrastando
 } from 'react-native'
-import Icon from 'react-native-vector-icons/FontAwesome' //importa um icone
+import Swipeable from 'react-native-gesture-handler/Swipeable' //efeito deslizante de exclir a task direita ou esquerda
+import Icon from 'react-native-vector-icons/FontAwesome' //importa icones
 
 import moment from 'moment'
 import 'moment/locale/pt-br'
@@ -22,10 +23,36 @@ export default props => {
      const formattedDate = moment(props.estimateAt).locale('pt-br')//colocar moment para data ficar em portugues
      .format('ddd, D [de] MMMM')//passando formatação da data
 
+     const getRightContent = () => {//metodo de deletar.. direita
+        return (
+            <TouchableOpacity style={styles.right}//causa a parada no arrastamento TouchableOpacity
+            onPress={() => props.onDelete && props.onDelete(props.id)}// deleta a task realmente botão
+            >
+                <Icon name="trash" size={30} color='#FFF' //usando icone de lixeira
+                />
+            </TouchableOpacity>
+        )
+    }
+
+    const getLeftContent = () => {
+        return (
+            <View style={styles.left}>
+                <Icon name="trash" size={20} color='#FFF'
+                    style={styles.excludeIcon} />
+                <Text style={styles.excludeText}>Excluir</Text>
+            </View>
+        )
+    }
+
     return (
+        <Swipeable
+        renderRightActions={getRightContent}//deslize direita coloca metodo getRightContent com ação
+        renderLeftActions={getLeftContent}//deslizar lado esquerdo para excluir direto
+        onSwipeableLeftOpen={() => props.onDelete && props.onDelete(props.id)} //quando leaft abrir dispara direto evento > só deleta direito se onDelete for acionado botão
+        >
         <View style={styles.container}>{/*divisoes das task css container */}
             <TouchableWithoutFeedback //acionar todas as funcoes da task filhos gerando alteração no onpress abaixo
-            onPress={() => props.toggleTask(props.id)}>{/*onPress: manipulção de toques botoes.. cria função toggleTask com id */}
+            onPress={() => props.onToggleTask(props.id)}>{/*onPress: manipulção de toques botoes.. cria função toggleTask com id */}
             <View style={styles.checkContainer}>
                 {getCheckView(props.doneAt)}{/*conclução task ou não */}
             </View>
@@ -36,6 +63,8 @@ export default props => {
 
             </View>
         </View>
+
+        </Swipeable>
     )
 }
 
@@ -93,6 +122,28 @@ const styles = StyleSheet.create({//StyleSheet em react native é objeto q é um
         fontFamily: commonStyles.fontFamily,
         color: commonStyles.colors.subText,//cor mais fraca subText
         fontSize: 12
+    },
+    right: {
+        backgroundColor: 'red',
+        flexDirection: 'row', //deslize direita em linha
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        paddingHorizontal: 20
+    },
+    left: {
+        flex: 1, //faz exclução completa usando flex 1 preencehendo todo de vermelho
+        backgroundColor: 'red',
+        flexDirection: 'row',//direção de linha
+        alignItems: 'center'
+    },
+    excludeIcon: {
+        marginLeft: 10
+    },
+    excludeText: {
+        fontFamily: commonStyles.fontFamily,
+        color: '#FFF',
+        fontSize: 20,
+        margin: 10
     }
 
 })

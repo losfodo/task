@@ -35,11 +35,16 @@
  <Task desc="Comprar livro" estimateAt={new Date()}doneAt={new Date()}/>{/*arquivo task.js descrição, data estimada,doneAt:concluido  */}
                 <Task desc="ler livro" estimateAt={new Date()}doneAt={null}/>{/*null= tarefa pendente */}
 
-+++++++++++para não dar erro no ios ao usar rnDateTimePicker++++++++++++++++++
++++++++++++para não dar erro no ios ao usar DateTimePicker++++++++++++++++++
 *ter xCode na versão mais atual
 *pod install : terminal dentro pasta ios do projeto 
 * abrir xCode e projeto task.. vai em file > workSpaceSettings > build system muda para legacy build system para não travar ios
 *no projeto apaga arquivo pasta build
+
++++++++excluir task deslizando rodar no android++++++++++++
+* ctrl + P : no visual studio code digita : MainActivity.java ... coloca codigo q concerta o deslizar de excluir task isto pego no stack overflow
+
+
 
 
 

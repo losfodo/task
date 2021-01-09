@@ -1,0 +1,43 @@
++++++++++++++backend do projeto tasks organizando+++++++++++++++
+*mkdir tasks-backend && cd tasks-backend   : OBS:terminal cria uma pasta chamada tasks-backend e cd entrar nela
+*npm init -y   : no terminal criar o arquivo package.json.. -y perguntas padroes ja respondidadas
+*npm i -s express body-parser cors consign  :terminal express sera framework web para contruir os web services////body-parser q é midleware q faz parse no body da requisição interpretando o que tem dentro do body covertendo em json
+////cors=deixa a api acessivel publicamente com outras origens////consign=facilita separação lógica de arquivos e carregamento automático de script,carregar automaticamente modelos, rotas, esquemas, configas, controladores, mapas de objetos.
+*npm i -s bcrypt-nodejs jwt-simple passport passport-jwt   :terminal, bcrypt-nodejs:parte de segurança de/jwt-simple:Módulo de código e decodificação/passport:segurança /passport-jwt=autentificação com facebook twitter e outros
+*npm i -s knex pg   : terminal, knex: acesso ao banco de dados/ pg: driver q vai acessar postgree
+*npm i -s moment   :utilizado para validar, manipular e fazer o parse de datas no JavaScript
+*npm i --save-dev nodemon   :para cada mudança no code reestarta o projeto para melhor monitoração e verificação de erros
+*troca no arquivo package.json o test para "start": "nodemon" para npm start
+
+++++++++++++++postgree & psql:banco de dados++++++++++++++++++++++++++++++++++4
+*psql --version   : terminal para ver versão q sera usada 9.5.14...... password:123456.... port:5432
+*na pasta do postgree em pasta bin arquivo psql pega o caminho copia > botão direito meu computador > propriedades > configuraçoes avançadas do sistema >>>
+>> variaveis de ambiente > Path > editar Path > new path > cola o caminho pastas postgree até pasta bin > e pronto >>>
+>> no terminal digita psql -U postgres -h localhost -W > digita password
+*psql -U postgres   : terminal digita senha postgres e enter para entrar no postgres U:usuario
+* \l   :terminal para listar databases disponiveis e que possue no postgres
+* CREATE DATABASE tasks;   :cria um banco de dados chamado task
+*\c + nome da tabela migration criada   :terminal para conectar com banco de dados
+*\dt   : terminal depois de \c + nome da tabela migration criada o \dt mostra se tem tabela no banco de dados e seus dados
+*\q   : sai da tabela e do modo psql postgres
++++++++++knex ++++++++++++++++
+*knex   :biblioteca ajuda a contruir consultas de  forma fluente com javascript,Knex obetemos controle de fluxo assíncrono respostas padronizadas entre diferentes bancos. Conta também com um sistema de migrations.
+*npm i knex -g   : instalar o knex de forma global
+*npm global add knex@0.20.7   : instalar o knex de forma global na versão igual do curso
+*knex init   : vai criar o arquivo chamado knexfile.js onde tera configuraçoes para banco de dados
+*knex migrate:make create_table_users   : criando uma pasta migrate com um arquivo de tabela de usuarios
+*knex migrate:make create_table_tasks   : OBS:migrate tem q ser ordenadas, é uma sequencia de chamadas para construir banco de dados
+*knex migrate:latest   : para execuatr as migrates arquivo  table_users e table_tasks... "knex": "^0.21.1", "pg": "^8.0.3" para funcionar este comando
+*knex migrate:rollback   : reversão do execução contrario de knex migrate:latest
+
+++++++++postman e sql postgres+++++++++++++++++
+*postman   : testando faz post em body json raw na url http://localhost:3000/signup...  "name":"Rafael", "email":"Rafael@gmail.com",   "password":"123456".. cria usuario >>
+>> select * from users;   :terminal dentro de tasks do postgres retorna usuario
+*POST é utilizado para a atualização de um dado já existente, enquanto o PUT é utilizado para inserção de um novo dado.
+*http://localhost:3000/tasks   > postman >"desc":"funcionou pelo token anterior","estimateAt":"2019-08-29" > com token de name e email > faz get put post delet...
+
+
+psql -U postgres > \c tasks > \dt
+npm start
+cd .1projetosCode/taskReactNative/task/tasks-backend
+

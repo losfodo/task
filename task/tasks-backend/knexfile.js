@@ -1,0 +1,21 @@
+// Update with your config settings.
+
+module.exports = {// configuraçoes para banco de dados abaixo..
+
+
+    client: 'postgresql',
+    connection: {
+      database: 'tasks',
+      user:     'postgres',
+      password: '123456'
+    },
+    pool: {
+      min: 2,
+      max: 10
+    },
+    migrations: {
+      tableName: 'knex_migrations'
+    }
+  
+
+};
